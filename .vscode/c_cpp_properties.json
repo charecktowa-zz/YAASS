@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "/opt/arduino-1.8.9-linux64/arduino-1.8.9/tools/**",
-                "/opt/arduino-1.8.9-linux64/arduino-1.8.9/hardware/arduino/avr/**"
+                "/opt/arduino-1.8.9-linux64/arduino-1.8.9/hardware/arduino/avr/**",
+                "/home/charecktowa/Arduino/libraries/**"
             ],
             "forcedInclude": [
                 "/opt/arduino-1.8.9-linux64/arduino-1.8.9/hardware/arduino/avr/cores/arduino/Arduino.h"
