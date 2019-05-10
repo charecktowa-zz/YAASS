@@ -1,6 +1,5 @@
-# JJJAD
-Arduino Security System based on the IoT
+# YAJJJAD
+Yet Another Arduino Security System based on the IoT.
 
-# What is JJJAD?
-
-It is a Security System designed for the house arduino-based.
+# What is YAJJJAD?
+It is an Arduino security system based on the Internet of the Things and uses a fingerprint sensor.
