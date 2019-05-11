@@ -17,6 +17,8 @@
  * 
  */
 
+#include <Arduino.h>
+
 /*For Fingerprint*/
 #include <Adafruit_Fingerprint.h>
 #include "fingerprint.hpp"
@@ -25,18 +27,31 @@
 
 #include <Servo.h>
 
+//#include "servosettings.hpp"
+
+/*
 SoftwareSerial fingerSerial(2, 3);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&fingerSerial);
 
 uint8_t id;
+*/
 byte newFP = 10;
 byte checkFP = 11;
 byte LED = 13;
 
-Servo ServoDoor;
-byte ServoPin = 6;
+Servo myServo;
+int ServoPin = 6;
+
+int DOOR_OPEN = 180;
 
 bool thereisnoFP = false;
+
+void door_open (){
+  for(int i = 0; i <= DOOR_OPEN; i++){
+    myServo.write(i);
+    delay(25);
+  }
+}
 
 void setup() {
   /*Sets the pins for the menu*/
@@ -57,14 +72,15 @@ void setup() {
   Serial.print(finger.templateCount); Serial.println(" huellas");
 
 
-  if (finger.templateCount == NULL) {
+  if (finger.templateCount == 0) {
     Serial.println("\nNo hay huellas.");
     Serial.println("Agregando huella maestra...");
     thereisnoFP = true;
   }
 
-  ServoInitialize(ServoPin);
-
+  /*Starts the Servo*/
+  myServo.attach(ServoPin);
+  myServo.write(0);
 }
 
 void loop () {
@@ -90,14 +106,17 @@ void loop () {
   /*Checks the fingerprint,*/
   if (digitalRead(checkFP) == HIGH) {
 
-    /**/
+    /*I don't know it works but it does
+      don't change anything because I don't know
+      how to fix it*/
     for (int i = 0; i < 50; i++) {
       getFingerprintIDez();
     }
 
+
     int confidence = finger.confidence;
-    if (confidence >= DOOROPEN) {
-      OpenDoor();
+    if (confidence >= 50) {
+      door_open();
     }
   }
 }
