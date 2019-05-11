@@ -12,6 +12,7 @@
  ****************************************************/
 
 #include "fingerprint.h"
+#include <stdint.h>
 
 uint8_t readnumber(void) {
   uint8_t num = 0;
