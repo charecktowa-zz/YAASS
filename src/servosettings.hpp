@@ -15,8 +15,8 @@
 #define DOOR_OPEN 180 /*You can change the degrees as you need*/
 #define DOOR_CLOSED
 
-void ServoInitialize(byte ServoPin);
-void OpenDoor();
-void close_door();
+    void ServoInitialize(byte ServoPin);
+    void OpenDoor();
+    void close_door();
 
 #endif

@@ -11,7 +11,6 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-
 #ifndef _fingerprint_hpp
 #define _fingerprint_hpp
 
@@ -20,10 +19,10 @@
 
 #include <Adafruit_Fingerprint.h>
 
-uint8_t readnumber(void); /*Reads the number for the ID of the fingerprint image*/
-uint8_t getFingerprintEnroll();
-uint8_t getFingerprintID();
-int getFingerprintIDez();
-void void Fingerprintcheck();
+    uint8_t readnumber(void); /*Reads the number for the ID of the fingerprint image*/
+    uint8_t getFingerprintEnroll();
+    uint8_t getFingerprintID();
+    int getFingerprintIDez();
+    void void Fingerprintcheck();
 
 #endif
