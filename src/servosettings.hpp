@@ -12,7 +12,7 @@
 
 #include <Servo.h>
 
-#define DOOR_OPEN 180 /*You can change the degrees as you need*/
+const int DOOR_OPEN = 180 /*You can change the degrees as you need*/
 #define DOOR_CLOSED
 
     void ServoInitialize(byte ServoPin);
