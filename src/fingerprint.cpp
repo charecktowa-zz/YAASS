@@ -11,7 +11,7 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#include "fingerprint.h"
+#include "fingerprint.hpp"
 #include <stdint.h>
 
 uint8_t readnumber(void) {

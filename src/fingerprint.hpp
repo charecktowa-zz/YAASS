@@ -12,8 +12,8 @@
  ****************************************************/
 
 
-#ifndef _fingerprint_h
-#define _fingerprint_h
+#ifndef _fingerprint_hpp
+#define _fingerprint_hpp
 
 #include <Arduino.h>
 #include <stdint.h>
