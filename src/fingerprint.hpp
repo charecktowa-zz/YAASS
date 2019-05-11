@@ -21,8 +21,9 @@
 #include <Adafruit_Fingerprint.h>
 
 uint8_t readnumber(void); /*Reads the number for the ID of the fingerprint image*/
-uint8_t getFingerprintEnroll()
-uint8_t getFingerprintID()
-int getFingerprintIDez()
+uint8_t getFingerprintEnroll();
+uint8_t getFingerprintID();
+int getFingerprintIDez();
+void void Fingerprintcheck();
 
 #endif
