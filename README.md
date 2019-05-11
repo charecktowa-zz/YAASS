@@ -5,7 +5,7 @@ Yet Another Arduino Security System based on the IoT.
 It is an Arduino security system based on the Internet of the Things and uses a fingerprint sensor.
 
 ## Products that use this project
-- Arduino Mega / Arduino DUE
+- Arduino Mega 2560 / Arduino DUE
 - Fingerprint sensor
 - Servo Motor
 - RTC DS3231
