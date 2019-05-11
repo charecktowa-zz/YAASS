@@ -251,6 +251,7 @@ int getFingerprintIDez() {
 void Fingerprintcheck() {
   if (finger.verifyPassword()) {
     Serial.println("Found fingerprint sensor!");
+    
   }
   else {
     Serial.println("Did not find fingerprint sensor :(");
