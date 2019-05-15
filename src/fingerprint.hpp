@@ -11,7 +11,6 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-
 #ifndef _fingerprint_hpp
 #define _fingerprint_hpp
 
