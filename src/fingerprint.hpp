@@ -19,10 +19,15 @@
 
 #include <Adafruit_Fingerprint.h>
 
-    uint8_t readnumber(void); /*Reads the number for the ID of the fingerprint image*/
-    uint8_t getFingerprintEnroll();
-    uint8_t getFingerprintID();
-    int getFingerprintIDez();
-    void void Fingerprintcheck();
+SoftwareSerial fingerSerial(2, 3);
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&fingerSerial);
+
+uint8_t id;
+
+uint8_t readnumber(void); /*Reads the number for the ID of the fingerprint image*/
+uint8_t getFingerprintEnroll();
+uint8_t getFingerprintID();
+int getFingerprintIDez();
+void Fingerprintcheck();
 
 #endif
