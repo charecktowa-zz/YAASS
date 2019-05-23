@@ -14,7 +14,9 @@
 #include "fingerprint.hpp"
 #include <stdint.h>
 
-    uint8_t readnumber(void) {
+/*reads the number for the ID*/
+uint8_t readnumber(void) {
+
     uint8_t num = 0;
 
     while (num == 0) {
@@ -24,6 +26,7 @@
     return num;
 }
 
+/**/
 uint8_t getFingerprintEnroll() {
 
     int p = -1;
@@ -164,6 +167,7 @@ uint8_t getFingerprintEnroll() {
 }
 
 uint8_t getFingerprintID() {
+
     uint8_t p = finger.getImage();
     switch (p) {
         case FINGERPRINT_OK:
@@ -231,6 +235,7 @@ uint8_t getFingerprintID() {
 
 /* returns -1 if failed, otherwise returns ID # */
 int getFingerprintIDez() {
+
     uint8_t p = finger.getImage();
     if (p != FINGERPRINT_OK) return -1;
 
@@ -249,6 +254,7 @@ int getFingerprintIDez() {
 /*This function checks if the fingerprint sensor
   is available*/
 void Fingerprintcheck() {
+    
     if (finger.verifyPassword()) {
         Serial.println("Found fingerprint sensor!");
 

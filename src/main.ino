@@ -1,4 +1,3 @@
-
 /*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +26,11 @@
 
 #include <Servo.h>
 
-//#include "servosettings.hpp"
+
+/*For writting into the SD card*/
+#include <SPI.h>
+#include <SD.h>
+#include "sdcardconfig.hpp"
 
 /*
 SoftwareSerial fingerSerial(2, 3);
@@ -61,6 +64,8 @@ void setup() {
 
   Serial.begin(9600);
   delay(100);
+
+  initSDcard();
 
   Serial.println("\nInitializing fingerprint sensor...\n");
   finger.begin(57600);
