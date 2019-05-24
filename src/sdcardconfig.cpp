@@ -1,6 +1,10 @@
 #include "sdcardconfig.hpp"
 #include <stdint.h>
 
+File myFile;
+/*I don't have a really good name for the log file*/
+String FILE_NAME_LOG = "cochinita.log";
+
 void initSDcard(){
 
     Serial.println("Inicializando la tarjeta SD.");
@@ -20,5 +24,5 @@ void initSDcard(){
     }
 
     Serial.println("Creando archivo log.");
-    VAPCIII = SD.open(FILE_NAME_LOG, FILE_WRITE);
+    myFile = SD.open(FILE_NAME_LOG, FILE_WRITE);
 }

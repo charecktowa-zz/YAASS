@@ -32,28 +32,53 @@
 #include <SD.h>
 #include "sdcardconfig.hpp"
 
-/*
-SoftwareSerial fingerSerial(2, 3);
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&fingerSerial);
-
-uint8_t id;
-*/
+/*Variables for the door system*/
 byte newFP = 10;
 byte checkFP = 11;
+byte closeDoor = 13;
 byte LED = 13;
+
+bool opened_door = false;
+bool closed_door = true;
 
 Servo myServo;
 int ServoPin = 6;
 
 int DOOR_OPEN = 180;
+int DOOR_CLOSED = 0;
 
 bool thereisnoFP = false;
 
-void door_open (){
-  for(int i = 0; i <= DOOR_OPEN; i++){
-    myServo.write(i);
-    delay(25);
+/*If the door is already open it will display a message saying
+  it is already open, ifn't it will open the door*/
+void door_open(){
+  /*Checks if the door is opened*/
+  if(opened_door == false){
+
+    Serial.println("Abriendo la puerta.");
+
+    for(int i = 0; i <= DOOR_OPEN; i++){
+      myServo.write(i);
+      delay(25);
+    }
+  } 
+  else {
+    Serial.println("La puerta ya está abierta.");
   }
+
+}
+void close_door(){
+  if(closed_door == true){
+    Serial.println("La puerta ya está cerrada");
+  }
+  else{
+    for (int i = DOOR_OPEN; i >= DOOR_CLOSED; i--){
+      myServo.write(i);
+      delay(25);
+    }
+    
+  }
+  
 }
 
 void setup() {
