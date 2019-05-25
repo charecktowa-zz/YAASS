@@ -1,3 +1,4 @@
+
 /*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -114,7 +115,7 @@ void setup() {
 }
 
 void loop () {
-  /*If there is no fingerprints into the sensor
+  /*If there is no fingerprints on the sensor
     it will send the user automatically into the adding
     fingerprint option*/
   if (digitalRead(newFP) == HIGH || thereisnoFP == true) {
@@ -135,18 +136,6 @@ void loop () {
   }
   /*Checks the fingerprint,*/
   if (digitalRead(checkFP) == HIGH) {
-
-    /*I don't know it works but it does
-      don't change anything because I don't know
-      how to fix it*/
-    for (int i = 0; i < 50; i++) {
-      getFingerprintIDez();
-    }
-
-
-    int confidence = finger.confidence;
-    if (confidence >= 50) {
-      door_open();
-    }
+    
   }
 }

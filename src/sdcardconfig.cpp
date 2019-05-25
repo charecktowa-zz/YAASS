@@ -3,7 +3,6 @@
 
 File myFile;
 /*I don't have a really good name for the log file*/
-String FILE_NAME_LOG = "cochinita.log";
 
 void initSDcard(){
 
@@ -16,7 +15,7 @@ void initSDcard(){
 
     Serial.println("Inicialización correcta.");
 
-    if(SD.exists(FILE_NAME_LOG)){
+    if(SD.exists("cochinita.log")){
         Serial.println("El archivo log ya existe.");
     }
     else {
@@ -24,5 +23,5 @@ void initSDcard(){
     }
 
     Serial.println("Creando archivo log.");
-    myFile = SD.open(FILE_NAME_LOG, FILE_WRITE);
+    myFile = SD.open("cochinita.log", FILE_WRITE);
 }
