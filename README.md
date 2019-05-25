@@ -1,4 +1,4 @@
-# YAASS
+# YAASS [![Build Status](https://travis-ci.org/charecktowa/YAASS.svg?branch=master)](https://travis-ci.org/charecktowa/YAASS)
 Yet Another Arduino Security System based on the IoT.
 
 ## What is YAASS?
