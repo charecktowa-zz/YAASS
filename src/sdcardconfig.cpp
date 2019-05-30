@@ -4,6 +4,8 @@
 File myFile;
 /*I don't have a really good name for the log file*/
 
+char logfile[15] = "cochinita.log";
+
 void initSDcard(){
 
     Serial.println("Inicializando la tarjeta SD.");
@@ -15,7 +17,7 @@ void initSDcard(){
 
     Serial.println("Inicialización correcta.");
 
-    if(SD.exists("cochinita.log")){
+    if(SD.exists(logfile)){
         Serial.println("El archivo log ya existe.");
     }
     else {
@@ -23,5 +25,5 @@ void initSDcard(){
     }
 
     Serial.println("Creando archivo log.");
-    myFile = SD.open("cochinita.log", FILE_WRITE);
+    myFile = SD.open(logfile, FILE_WRITE);
 }
