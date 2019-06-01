@@ -1,5 +1,5 @@
 # YAASS [![Build Status](https://travis-ci.org/charecktowa/YAASS.svg?branch=master)](https://travis-ci.org/charecktowa/YAASS)
-Yet Another Arduino Security System based on the IoT.
+YAASS is Another Arduino Security System based on the IoT.
 
 ## What is YAASS?
 It is an Arduino security system based on the Internet of the Things and uses a fingerprint sensor.
