@@ -19,7 +19,11 @@
 
 #include <Adafruit_Fingerprint.h>
 
-SoftwareSerial fingerSerial(2, 3);
+
+/*If using hardware serial, use the define if not*
+* use the SoftwareSerial function                */
+#define fingerSerial Serial1
+// SoftwareSerial fingerSerial(2, 3); 
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&fingerSerial);
 
 uint8_t id;
