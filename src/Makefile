@@ -1,3 +1,6 @@
+# The Makefile is not working due to problems with 'multiple definitions'
+# But the program is bulding correctly with the Arduino IDE
+
 ARDUINO_DIR = /usr/share/arduino
 ARDUINO_PORT = /dev/ttyACM*
 
@@ -5,6 +8,6 @@ ARDUINO_PORT = /dev/ttyACM*
 USER_LIB_PATH = /home/user/Arduino/libraries/
 BOARD_TAG = mega2560
 
-ARDUINO_LIBS = SoftwareSerial Servo Adafruit_Fingerprint_Sensor_Library SPI SD
+ARDUINO_LIBS = SD SPI SoftwareSerial Adafruit_Fingerprint_Sensor_Library
 
 include /usr/share/arduino/Arduino.mk 

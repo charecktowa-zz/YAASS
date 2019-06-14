@@ -253,7 +253,10 @@ int getFingerprintIDez() {
 
 /*This function checks if the fingerprint sensor
   is available*/
-void Fingerprintcheck() {
+void fingerprintcheck() {
+
+    Serial.println("Trying to initialize fingerprint sensor");
+    finger.begin(57600); //the minimal bauds for conection
     
     if (finger.verifyPassword()) {
         Serial.println("Found fingerprint sensor!");

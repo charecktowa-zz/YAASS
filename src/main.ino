@@ -19,123 +19,86 @@
 
 #include <Arduino.h>
 
-/*For Fingerprint*/
+#include <SD.h>
+#include <SPI.h>
+#include "sdcardconfig.hpp"
+
 #include <Adafruit_Fingerprint.h>
 #include "fingerprint.hpp"
 
-#include <SoftwareSerial.h>
-
-#include <Servo.h>
-
-
-/*For writting into the SD card*/
-#include <SPI.h>
-#include <SD.h>
-#include "sdcardconfig.hpp"
-
-/*Variables for the door system*/
 byte newFP = 10;
 byte checkFP = 11;
-byte closeDoor = 13;
-byte LED = 13;
 
-bool opened_door = false;
-bool closed_door = true;
-
-Servo myServo;
-int ServoPin = 6;
-
-int DOOR_OPEN = 180;
-int DOOR_CLOSED = 0;
+uint8_t main_user_id = 1;
+uint8_t user_id;
 
 bool thereisnoFP = false;
+bool main_user_exist = false;
 
-/*If the door is already open it will display a message saying
-  it is already open, ifn't it will open the door*/
-void door_open(){
-  /*Checks if the door is opened*/
-  if(opened_door == false){
-
-    Serial.println("Abriendo la puerta.");
-
-    for(int i = 0; i <= DOOR_OPEN; i++){
-      myServo.write(i);
-      delay(25);
-    }
-  } 
-  else {
-    Serial.println("La puerta ya está abierta.");
-  }
-
-}
-void close_door(){
-  if(closed_door == true){
-    Serial.println("La puerta ya está cerrada");
-  }
-  else{
-    for (int i = DOOR_OPEN; i >= DOOR_CLOSED; i--){
-      myServo.write(i);
-      delay(25);
-    }
-    
-  }
-  
-}
-
-void setup() {
-  /*Sets the pins for the menu*/
+void setup () {
+  /* Set the pin for the main menu */
   pinMode(newFP, INPUT);
   pinMode(checkFP, INPUT);
-  pinMode(LED, OUTPUT);
+  /*pinMode(); */
 
-  Serial.begin(9600);
-  delay(100);
-
+  Serial.begin(9600); //bauds
   initSDcard();
+  fingerprintcheck();
 
-  Serial.println("\nInitializing fingerprint sensor...\n");
-  finger.begin(57600);
-
-  Fingerprintcheck();
-
+  /*Begins to check if exist templates on the fingerprint sensor*/
   finger.getTemplateCount();
-  Serial.print("El sensor tine: ");
-  Serial.print(finger.templateCount); Serial.println(" huellas");
-
+  Serial.print("El sensor tiene: "); 
+  Serial.println(finger.templateCount); Serial.println("huellas");
 
   if (finger.templateCount == 0) {
-    Serial.println("\nNo hay huellas.");
+    Serial.println("\nNo existen huellas");
     Serial.println("Agregando huella maestra...");
     thereisnoFP = true;
+
+    while (thereisnoFP == true) {
+      Serial.println("Inserte su dedo dentro del sensor de huellas");
+      delay(100);
+      id = main_user_id;
+
+      while (!getFingerprintEnroll());
+      Serial.println("Huella maestra agregada exitosamente.");
+      main_user_exist = true;
+      thereisnoFP = false;
+    }
   }
 
-  /*Starts the Servo*/
-  myServo.attach(ServoPin);
-  myServo.write(0);
 }
 
 void loop () {
-  /*If there is no fingerprints on the sensor
-    it will send the user automatically into the adding
-    fingerprint option*/
-  if (digitalRead(newFP) == HIGH || thereisnoFP == true) {
-    delay(100);
-    Serial.println("Listo para agregar la huella!");
-    Serial.println("Por favor ingrese el ID # (DE 1 A 127)");
-    id = readnumber();
+  if (digitalRead(newFP) == HIGH) {
+    byte counter = 0;
+    while (main_user_exist == true && counter >= 3) {
+      Serial.println("Inserte huella maestra");
+      delay(100);
+      user_id = getFingerprintID();
 
-    if (id == 0) {
-      return;
-    }
+      if (user_id != main_user_id)
+        counter++;
 
-    Serial.print("Agregando ID #");
-    Serial.println(id);
+      else if (user_id == main_user_id) {
+        Serial.println("Listo para agregar la huella");
+        Serial.println("Ingrese el ID ");
 
-    while (!  getFingerprintEnroll());
-    delay(100);
-  }
-  /*Checks the fingerprint,*/
-  if (digitalRead(checkFP) == HIGH) {
+        id = readnumber();
+
+        if (id == 0){
+          Serial.println("El ID # 0 no es un valor valido");
+        }
+
+        Serial.println("Agregando ID #");
+        Serial.print(id);
+
+        while (! getFingerprintEnroll());
+        delay(100);
+      }
     
+    }
   }
+
+  if (digitalRead(checkFP == HIGH)) {}
 }
