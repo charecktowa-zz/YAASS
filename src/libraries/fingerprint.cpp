@@ -269,3 +269,8 @@ void fingerprintcheck() {
         }
     }
 }
+
+/*Best function ever*/
+void donothing (void) {
+  delay(1000);
+}

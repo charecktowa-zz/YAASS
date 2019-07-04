@@ -27,3 +27,9 @@ void initSDcard(){
     Serial.println("Creando archivo log.");
     myFile = SD.open(logfile, FILE_WRITE);
 }
+
+void writetoSDcard(String Message){
+    myFile.println(Message);
+    myFile.close();
+    Serial.println("Guardado en la SD.");
+}

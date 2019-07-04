@@ -8,5 +8,6 @@
 #include <SD.h>
 
 void initSDcard();
+void writetoSDcard(String Message);
 
 #endif

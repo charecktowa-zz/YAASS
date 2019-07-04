@@ -8,6 +8,6 @@ ARDUINO_PORT = /dev/ttyACM*
 USER_LIB_PATH = /home/user/Arduino/libraries/
 BOARD_TAG = mega2560
 
-ARDUINO_LIBS = SD SPI SoftwareSerial Adafruit_Fingerprint_Sensor_Library
+ARDUINO_LIBS = SD SPI SoftwareSerial Adafruit_Fingerprint_Sensor_Library Wire
 
 include /usr/share/arduino/Arduino.mk 
