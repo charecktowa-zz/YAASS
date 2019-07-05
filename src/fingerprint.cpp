@@ -14,6 +14,10 @@
 #include "fingerprint.hpp"
 #include <stdint.h>
 
+extern Adafruit_Fingerprint finger = Adafruit_Fingerprint(&fingerSerial);
+uint8_t id;
+
+
 /*reads the number for the ID*/
 uint8_t readnumber(void) {
 

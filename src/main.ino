@@ -24,7 +24,7 @@
 //#include "libraries/sdcardconfig.hpp"
 
 #include <Adafruit_Fingerprint.h>
-#include "libraries/fingerprint.hpp"
+#include "fingerprint.hpp"
 
 //#include <Wire.h>
 //#include <LiquidCrystal_I2C.h>

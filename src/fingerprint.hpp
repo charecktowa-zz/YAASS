@@ -24,8 +24,8 @@
 * use the SoftwareSerial function                */
 #define fingerSerial Serial1
 // SoftwareSerial fingerSerial(2, 3); 
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&fingerSerial);
-uint8_t id = 0;
+extern Adafruit_Fingerprint finger;
+extern uint8_t id;
 
 uint8_t readnumber(void); /*Reads the number for the ID of the fingerprint image*/
 uint8_t getFingerprintEnroll();
