@@ -19,14 +19,14 @@
 
 #include <Arduino.h>
 
-#include <SD.h>
-#include <SPI.h>
-#include "libraries/sdcardconfig.hpp"
+//#include <SD.h>
+//#include <SPI.h>
+//#include "libraries/sdcardconfig.hpp"
 
 #include <Adafruit_Fingerprint.h>
 #include "libraries/fingerprint.hpp"
 
-#include <Wire.h>
+//#include <Wire.h>
 //#include <LiquidCrystal_I2C.h>
 
 const byte newFP = 10;
@@ -42,7 +42,6 @@ bool id_add = false;
 bool door_closed = false;
 byte counter = 0; 
 
-
 void setup () {
   /* Set the pin for the main menu */
   pinMode(newFP, INPUT);
@@ -55,21 +54,21 @@ void setup () {
 
   /*Begins to check if exist templates on the fingerprint sensor*/
   finger.getTemplateCount();
-  Serial.print("El sensor tiene: "); 
-  Serial.print(finger.templateCount); Serial.println("huellas");
+  Serial.print(F("The FPS has: ")); 
+  Serial.print(finger.templateCount); Serial.println(F("fingerprints"));
 
   if (finger.templateCount == 0) {
-    Serial.println("\nNo existen huellas");
-    Serial.println("Agregando huella maestra...");
+    Serial.println(F("\nDid not find fingerprints "));
+    Serial.println(F("Adding main fingerprint..."));
     thereisnoFP = true;
 
     while (thereisnoFP == true) {
-      Serial.println("Inserte su dedo dentro del sensor de huellas");
+      Serial.println(F("Put your finger on the sensor"));
       delay(100);
       id = main_user_id;
 
       while (!getFingerprintEnroll());
-      Serial.println("Huella maestra agregada exitosamente.");
+      Serial.println(F("Fingerprint added successfully"));
       main_user_exist = true;
       thereisnoFP = false;
     }
@@ -87,27 +86,27 @@ void loop () {
     counter = 0;
     while ( (main_user_exist == true && counter < 3) || (id_add == true) )
     {
-      Serial.println("Ingrese la huella maestra.");
+      Serial.println(F("Put your finger on the sensor"));
       user_id = getFingerprintIDez();
       delay(100);
 
       if (user_id == main_user_id) {
-        Serial.println("Las huellas coinciden");
+        Serial.println(F("Fingerprints match!"));
         delay(500);
 
         /*Adds a new fingerprint*/
-        Serial.println("Listo para agregar huella!");
-        Serial.println("Por favor ingrese un ID # (2 - 127)");
+        Serial.println(F("Ready to enroll a fingerprint!"));
+        Serial.println(F("Please type an ID # (from 2 to 127)"));
 
         /*Need to change how to recibe an input number*/
         id = -1;
         id = readnumber();
         if (id == 0 || id == 1) {
-          Serial.println("ID no valido.");
+          Serial.println(F("ID not allowed"));
           counter++;
         }
 
-        Serial.print("Agregando ID #");
+        Serial.print(F("Agregando ID #"));
         Serial.println(user_id);
 
         while (! getFingerprintEnroll() );
@@ -116,7 +115,7 @@ void loop () {
 
       if (user_id != main_user_id) {
         if (user_id == -1){
-          Serial.println("Error leyendo la huella.");
+          Serial.println(F("Failed to enroll ID"));
           counter++;
         }
         /* I don't know why (yet) but when the fingerprint
@@ -124,13 +123,13 @@ void loop () {
            If there is not a finger in the sensor the program
            will not do something*/
         else if (user_id == 255) {
-          Serial.println("Esperando huella valida.");
-          donothing();
+          Serial.println(F("Waiting a valid fingperprint"));
+          //donothing();
         }
         /* If the function recives a valid fingerprint but
            it's not the the "main" finger will report it */
         else {
-          Serial.println("Ingrese unicamente la huella maestra");
+          Serial.println(F("Put only the main fingerprint"));
           counter++;
           // should report this to the SD card
         }
@@ -140,16 +139,16 @@ void loop () {
 }
 
   if (digitalRead(checkFP == HIGH)) {
-    Serial.println("Ingrese una huella para abrir la puerta.");
+    Serial.println(F("Ingrese una huella para abrir la puerta."));
 
     counter = 0;
     user_id = -1;
     while (door_closed == false && counter < 3)
     {
-      Serial.println("Esperando huella");
+      Serial.println(F("Esperando huella"));
       user_id = getFingerprintIDez();
       delay(100);
-      Serial.println("ID recibido: "); Serial.println(user_id);
+      Serial.println(F("ID recibido: ")); Serial.println(user_id);
 
       /* Because the 1 is the main user ID and 127 is the max ID available */
       if (user_id > 1 && user_id < 127) {
@@ -157,12 +156,12 @@ void loop () {
       }
 
       else if (user_id == -1) {
-        Serial.println("Error leyendo huella.");
+        Serial.println(F("Error leyendo huella."));
         counter++;
       }
 
       else {
-        donothing();
+        //donothing();
       }
     }
   }
