@@ -19,15 +19,8 @@
 
 #include <Arduino.h>
 
-//#include <SD.h>
-//#include <SPI.h>
-//#include "libraries/sdcardconfig.hpp"
-
 #include <Adafruit_Fingerprint.h>
 #include "fingerprint.hpp"
-
-//#include <Wire.h>
-//#include <LiquidCrystal_I2C.h>
 
 const byte newFP = 10;
 const byte checkFP = 13;
@@ -48,27 +41,29 @@ void setup () {
   pinMode(checkFP, INPUT);
   /*pinMode(); */
 
-  Serial.begin(57600); //bauds
+  Serial.begin(9600); //bauds
   //initSDcard();
-  fingerprintcheck();
+  initFPS();
 
   /*Begins to check if exist templates on the fingerprint sensor*/
   finger.getTemplateCount();
-  Serial.print(F("The FPS has: ")); 
-  Serial.print(finger.templateCount); Serial.println(F("fingerprints"));
+  Serial.print(F("El sensor tiene")); 
+  Serial.print(finger.templateCount); Serial.println(F("huellas"));
 
   if (finger.templateCount == 0) {
-    Serial.println(F("\nDid not find fingerprints "));
-    Serial.println(F("Adding main fingerprint..."));
+    Serial.println(F("\nNo se encontraron huellas"));
+    delay(1000);
+    Serial.println(F("Añadiendo huella maestra"));
     thereisnoFP = true;
 
-    while (thereisnoFP == true) {
-      Serial.println(F("Put your finger on the sensor"));
+    while (thereisnoFP == true) 
+    {
+      Serial.println(F("Coloque el dedo sobre el sensor"));
       delay(100);
       id = main_user_id;
 
       while (!getFingerprintEnroll());
-      Serial.println(F("Fingerprint added successfully"));
+      Serial.println(F("Huella añadida correctamente."));
       main_user_exist = true;
       thereisnoFP = false;
     }
@@ -82,27 +77,29 @@ void setup () {
 
 void loop () {
   if (digitalRead(newFP) == HIGH) {
+    Serial.println(F("Agregar nueva huella"));
+    delay(1000);
     id_add = true;
     counter = 0;
     while ( (main_user_exist == true && counter < 3) || (id_add == true) )
     {
-      Serial.println(F("Put your finger on the sensor"));
+      Serial.println(F("Coloque el dedo sobre el sensor"));
       user_id = getFingerprintIDez();
       delay(100);
 
       if (user_id == main_user_id) {
-        Serial.println(F("Fingerprints match!"));
+        Serial.println(F("¡Las huellas coinciden!"));
         delay(500);
 
         /*Adds a new fingerprint*/
-        Serial.println(F("Ready to enroll a fingerprint!"));
-        Serial.println(F("Please type an ID # (from 2 to 127)"));
+        Serial.println(F("Listo para agregar huellas"));
+        Serial.println(F("Ingrese un ID # (de 2 a 127)"));
 
         /*Need to change how to recibe an input number*/
         id = -1;
         id = readnumber();
         if (id == 0 || id == 1) {
-          Serial.println(F("ID not allowed"));
+          Serial.println(F("ID no valido"));
           counter++;
         }
 
@@ -115,7 +112,7 @@ void loop () {
 
       if (user_id != main_user_id) {
         if (user_id == -1){
-          Serial.println(F("Failed to enroll ID"));
+          Serial.println(F("Las huellas no coinciden."));
           counter++;
         }
         /* I don't know why (yet) but when the fingerprint
@@ -123,13 +120,13 @@ void loop () {
            If there is not a finger in the sensor the program
            will not do something*/
         else if (user_id == 255) {
-          Serial.println(F("Waiting a valid fingperprint"));
-          //donothing();
+          Serial.println(F("Esperando una huella valida"));
+          delay(1500);
         }
         /* If the function recives a valid fingerprint but
            it's not the the "main" finger will report it */
         else {
-          Serial.println(F("Put only the main fingerprint"));
+          Serial.println(F("Coloque únicamente la huella maestra"));
           counter++;
           // should report this to the SD card
         }
@@ -140,7 +137,7 @@ void loop () {
 
   if (digitalRead(checkFP == HIGH)) {
     Serial.println(F("Ingrese una huella para abrir la puerta."));
-
+    delay(1000);
     counter = 0;
     user_id = -1;
     while (door_closed == false && counter < 3)
@@ -161,7 +158,7 @@ void loop () {
       }
 
       else {
-        //donothing();
+        delay(1500);
       }
     }
   }

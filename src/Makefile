@@ -2,7 +2,7 @@
 # But the program is bulding correctly with the Arduino IDE
 
 ARDUINO_DIR = /usr/share/arduino
-ARDUINO_PORT = /dev/ttyACM*
+ARDUINO_PORT = /dev/ttyUSB*
 
 # change this directory where do you have the custom libraries
 USER_LIB_PATH = /home/user/Arduino/libraries/
